@@ -50,7 +50,7 @@ const movieSchema = new mongoose.Schema({
   nameEN: {
     required: true,
     type: String,
-  }
+  },
 });
 
 module.exports = mongoose.model('movie', movieSchema);

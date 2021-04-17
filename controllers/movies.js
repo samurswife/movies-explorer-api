@@ -9,10 +9,35 @@ const getMovies = (req, res, next) => {
 };
 
 const addMovie = (req, res, next) => {
-  const { country, director, duration, year, description, image, trailer, thumbnail, nameRU, nameEN, movieId } = req.body;
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    thumbnail,
+    nameRU,
+    nameEN,
+    movieId,
+  } = req.body;
   const user = req.user._id;
 
-  Movie.create({ country, director, duration, year, description, image, trailer, thumbnail, nameRU, nameEN, movieId, owner: user })
+  Movie.create({
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    thumbnail,
+    nameRU,
+    nameEN,
+    movieId,
+    owner: user,
+  })
     .then((movie) => {
       Movie.findById(movie._id)
         .populate(['owner'])
@@ -44,5 +69,5 @@ const deleteMovie = (req, res, next) => {
 module.exports = {
   getMovies,
   addMovie,
-  deleteMovie
-}
+  deleteMovie,
+};

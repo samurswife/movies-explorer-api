@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 30
+    maxlength: 30,
   },
   email: {
     unique: true,
@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
         return validator.isEmail(v);
       },
       message: 'Пожалуйста, введите адрес электронной почты!',
-    }
+    },
   },
   password: {
     type: String,
@@ -49,4 +49,3 @@ userSchema.statics.findUserByCredentials = function (email, password) {
 };
 
 module.exports = mongoose.model('user', userSchema);
-

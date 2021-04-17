@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const cors = require('cors');
+// const cors = require('cors');
 
 const { PORT = 3000 } = process.env;
 
@@ -59,7 +59,7 @@ app.post('/signin', login);
 
 app.use('/users', auth, routerUsers);
 app.use('/movies', auth, routerMovies);
-app.use('/', (req, res) => {
+app.use('/', () => {
   throw new NotFound('Запрашиваемый ресурс не найден');
 });
 
