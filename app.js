@@ -23,16 +23,16 @@ const { PORT = 3000 } = process.env;
 
 const { NotFound } = require('./errors/index');
 const errorHandler = require('./middlewares/errorHandler');
-// const routerUsers = require('./routes/users');
-// const routerCards = require('./routes/cards');
-// const { login, createUser } = require('./controllers/users');
-// const auth = require('./middlewares/auth');
+const routerUsers = require('./routes/users');
+const routerMovies = require('./routes/movies');
+const { login, createUser } = require('./controllers/users');
+const auth = require('./middlewares/auth');
 // const { signin, signup } = require('./middlewares/validators/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/mestodb', {
+mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -54,8 +54,11 @@ app.use(requestLogger);
 // app.post('/signup', signup, createUser);
 // app.post('/signin', signin, login);
 
-// app.use('/users', auth, routerUsers);
-// app.use('/cards', auth, routerCards);
+app.post('/signup', createUser);
+app.post('/signin', login);
+
+app.use('/users', auth, routerUsers);
+app.use('/movies', auth, routerMovies);
 app.use('/', (req, res) => {
   throw new NotFound('Запрашиваемый ресурс не найден');
 });
