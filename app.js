@@ -27,7 +27,7 @@ const routerUsers = require('./routes/users');
 const routerMovies = require('./routes/movies');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
-// const { signin, signup } = require('./middlewares/validators/index');
+const { signin, signup } = require('./middlewares/validators/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
@@ -51,11 +51,8 @@ app.use(requestLogger);
 //   }, 0);
 // });
 
-// app.post('/signup', signup, createUser);
-// app.post('/signin', signin, login);
-
-app.post('/signup', createUser);
-app.post('/signin', login);
+app.post('/signup', signup, createUser);
+app.post('/signin', signin, login);
 
 app.use('/users', auth, routerUsers);
 app.use('/movies', auth, routerMovies);
