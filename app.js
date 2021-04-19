@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-// const helmet = require('helmet');
+const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 // const cors = require('cors');
@@ -31,7 +31,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 
-// app.use(helmet());
+app.use(helmet());
 
 mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
   useNewUrlParser: true,
