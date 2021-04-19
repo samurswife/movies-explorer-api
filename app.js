@@ -1,24 +1,24 @@
 require('dotenv').config();
 const express = require('express');
-const helmet = require('helmet');
+// const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const cors = require('cors');
+// const cors = require('cors');
 
 const { PORT = 3000 } = process.env;
 
-const options = {
-  origin: [
-    'http://localhost:8080',
-    'https://shakarova.nomoredomains.icu',
-    'http://shakarova.nomoredomains.icu',
-  ],
-  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
-  credentials: true,
-};
+// const options = {
+//   origin: [
+//     'http://localhost:8080',
+//     'https://shakarova.nomoredomains.icu',
+//     'http://shakarova.nomoredomains.icu',
+//   ],
+//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+//   preflightContinue: false,
+//   optionsSuccessStatus: 204,
+//   allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+//   credentials: true,
+// };
 
 const { NotFound } = require('./errors/index');
 const errorHandler = require('./middlewares/errorHandler');
@@ -31,7 +31,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 
-app.use(helmet());
+// app.use(helmet());
 
 mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
   useNewUrlParser: true,
@@ -39,7 +39,7 @@ mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
   useFindAndModify: false,
 });
 
-app.use('*', cors(options));
+// app.use('*', cors(options));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
