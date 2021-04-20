@@ -25,7 +25,7 @@ app.use(helmet());
 //   useFindAndModify: false,
 // });
 
-mongoose.connect(NODE_ENV === 'production' ? DB : 'mongodb://localhost:27017/dev-bitfilmsdb', {
+mongoose.connect(NODE_ENV === 'production' ? `mongodb://localhost:27017/${DB}` : 'mongodb://localhost:27017/dev-bitfilmsdb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
