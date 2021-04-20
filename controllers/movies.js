@@ -2,9 +2,12 @@ const Movie = require('../models/movie');
 const { Conflict, NotFound } = require('../errors/index');
 
 const getMovies = (req, res, next) => {
+  const { user } = req;
+
   Movie.find({})
     .populate(['owner'])
-    .then((movie) => res.send(movie))
+    .then((movies) => movies.filter((movie) => movie.owner._id.toString() === user._id))
+    .then((likedMovies) => res.send(likedMovies))
     .catch(next);
 };
 

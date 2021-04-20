@@ -52,18 +52,24 @@ const getUserInfo = (req, res, next) => {
 const updateUserInfo = (req, res, next) => {
   const { name, email } = req.body;
 
-  User.findByIdAndUpdate(
-    req.user._id,
-    { name, email },
-    {
-      new: true,
-      runValidators: true,
-    },
-  )
-    .orFail(() => {
-      throw new NotFound('Нет пользователя с таким ID');
-    })
-    .then((user) => res.send(user))
+  User.findOne({ email }).then((user) => {
+    if (user) {
+      throw new Conflict('Ошибка: такой email уже используется.');
+    } else {
+      User.findByIdAndUpdate(
+        req.user._id,
+        { name, email },
+        {
+          new: true,
+          runValidators: true,
+        },
+      )
+        .orFail(() => {
+          throw new NotFound('Нет пользователя с таким ID');
+        })
+        .then((updatedUser) => res.send(updatedUser));
+    }
+  })
     .catch(next);
 };
 

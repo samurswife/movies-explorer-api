@@ -1,22 +1,25 @@
-/* eslint-disable no-unused-vars */
-
 const { isCelebrateError } = require('celebrate');
 
 const errorHandler = (err, req, res, next) => {
   if (isCelebrateError(err)) {
-    return res.status(400).send({ message: `Ошибка: ${err.details.get('params') ? err.details.get('params').message : err.details.get('body')}` });
+    res.status(400).send({ message: `Ошибка: ${err.details.get('params') ? err.details.get('params').message : err.details.get('body')}` });
+    return;
   }
 
   if (err.status) {
-    return res.status(err.status).send({ message: err.message });
+    res.status(err.status).send({ message: err.message });
+    return;
   }
 
   if (err.name === 'CastError') {
-    return res.status(400).send({ message: 'Невалидный ID ресурса' });
+    res.status(400).send({ message: 'Невалидный ID ресурса' });
+    return;
   } if (err.name === 'ValidationError') {
-    return res.status(400).send({ message: `Введены некорректные данные: ${err}` });
+    res.status(400).send({ message: `Введены некорректные данные: ${err}` });
+    return;
   }
-  return res.status(500).send({ message: `Ошибка: ${err.message}` });
+  res.status(500).send({ message: `Ошибка: ${err.message}` });
+  next();
 };
 
 module.exports = errorHandler;
