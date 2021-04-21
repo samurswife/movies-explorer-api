@@ -1,2 +1,5 @@
 # movies-explorer-api
-backend
+Бэкенд для дипломного проекта Bitfilms.
+
+https://api.shakarova.nomoredomains.icu
+84.201.170.38
