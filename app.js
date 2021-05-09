@@ -10,9 +10,10 @@ const { PORT = 3000, NODE_ENV, DB } = process.env;
 const options = {
   origin: [
     '*',
-    // 'http://localhost:8080',
-    // 'http://shakarova.nomoredomains.icu',
-    // 'https://shakarova.nomoredomains.icu',
+    'http://localhost:3000',
+    'http://localhost:8080',
+    'http://shakarova.nomoredomains.icu',
+    'https://shakarova.nomoredomains.icu',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
