@@ -36,9 +36,36 @@ const createUser = (req, res, next) => {
       email,
       password: hash,
     }))
-    .then((user) => res.send(user))
+    .then((user) => {
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'a835f7f3edcb25a81f3b7607b4838ffa23e20be4cc9f7b3c06a3b52256049ef9',
+        { expiresIn: 3600000 * 24 * 7 },
+      );
+      res.send({ token });
+    })
     .catch(next);
 };
+
+// const createUser = (req, res, next) => {
+//   const {
+//     name, email, password,
+//   } = req.body;
+
+//   User.findOne({ email }).then((user) => {
+//     if (user) {
+//       throw new Conflict('Ошибка: такой email уже используется.');
+//     }
+//     return bcrypt.hash(password, 10);
+//   })
+//     .then((hash) => User.create({
+//       name,
+//       email,
+//       password: hash,
+//     }))
+//     .then((user) => res.send(user))
+//     .catch(next);
+// };
 
 const getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
