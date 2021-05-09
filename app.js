@@ -3,8 +3,23 @@ const express = require('express');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const { PORT = 3000, NODE_ENV, DB } = process.env;
+
+const options = {
+  origin: [
+    '*',
+    'http://localhost:8080',
+    'http://shakarova.nomoredomains.icu',
+    'https://shakarova.nomoredomains.icu',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
 
 const { NotFound } = require('./errors/index');
 const errorHandler = require('./middlewares/errorHandler');
@@ -24,6 +39,8 @@ mongoose.connect(NODE_ENV === 'production' ? DB : 'mongodb://localhost:27017/dev
   useCreateIndex: true,
   useFindAndModify: false,
 });
+
+app.use('*', cors(options));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
