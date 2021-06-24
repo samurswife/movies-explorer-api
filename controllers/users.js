@@ -60,7 +60,7 @@ const updateUserInfo = (req, res, next) => {
   const { name, email } = req.body;
 
   User.findOne({ email }).then((user) => {
-    if (user._id.toString() !== req.user._id) {
+    if (user && (user._id.toString() !== req.user._id)) {
       throw new Conflict('Ошибка: такой email уже используется.');
     } else {
       User.findByIdAndUpdate(
