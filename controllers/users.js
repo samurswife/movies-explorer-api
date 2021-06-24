@@ -47,26 +47,6 @@ const createUser = (req, res, next) => {
     .catch(next);
 };
 
-// const createUser = (req, res, next) => {
-//   const {
-//     name, email, password,
-//   } = req.body;
-
-//   User.findOne({ email }).then((user) => {
-//     if (user) {
-//       throw new Conflict('Ошибка: такой email уже используется.');
-//     }
-//     return bcrypt.hash(password, 10);
-//   })
-//     .then((hash) => User.create({
-//       name,
-//       email,
-//       password: hash,
-//     }))
-//     .then((user) => res.send(user))
-//     .catch(next);
-// };
-
 const getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(() => {

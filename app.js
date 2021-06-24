@@ -9,8 +9,6 @@ const { PORT = 3000, NODE_ENV, DB } = process.env;
 
 const options = {
   origin: [
-    '*',
-    'http://localhost:3000',
     'http://localhost:8080',
     'http://shakarova.nomoredomains.icu',
     'https://shakarova.nomoredomains.icu',
